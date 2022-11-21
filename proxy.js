@@ -10,7 +10,7 @@ module.exports = [
   {
     // 联调改这个
     baseUrl: '/api',
-    target: 'https://screen.yiyunrj.xyz/api/',
+    target: 'https://screen.yiyunrj.com/api/',
     secure: true,
     changeOrigin: true,
     pathRewrite: ''

@@ -5,8 +5,22 @@
         <h1>水联网开盘抢单</h1>
         <p class="money__content">
           <span>￥</span>
-          <CountTo :startVal="startVal" :endVal="endVal" :duration="3000"></CountTo>
-          <span>万</span>
+          <template v-for="(item, index) in amountData">
+            <span v-if="Number(item)" :key="index" class="amount">
+              <CountTo
+                :key="index"
+                :startVal="startVal"
+                :endVal="Number(item) || 0"
+                :duration="3000"
+              ></CountTo>
+            </span>
+            <span v-if="!Number(item)" :key="`c_${index}`" class="amount zero">
+              <CountTo :startVal="startVal" :endVal="0" :duration="3000"></CountTo>
+              <CountTo :startVal="startVal" :endVal="0" :duration="3000"></CountTo>
+              <CountTo :startVal="startVal" :endVal="0" :duration="3000"></CountTo>
+            </span>
+            <span v-if="index < amountData.length - 1" :key="`s_${index}`">,</span>
+          </template>
         </p>
       </header>
       <article>
@@ -60,9 +74,37 @@
               <span>客户抢单</span>
               <span>金额：万元</span>
             </h2>
-            <div ref="obtain" class="right__content" :style="{ paddingTop: '20px' }">
+            <div
+              ref="obtain"
+              class="right__content"
+              :style="{ paddingTop: '20px', height: sectionHeight }"
+            >
               <ul>
                 <li v-for="(item, index) in listData" :key="index">
+                  <span>{{ item.company }}</span>
+                  <span>
+                    <div class="el__progress__bar">
+                      <div
+                        class="el__progress__bar__outer"
+                        :style="{ width: item.parcent + '%' }"
+                      ></div>
+                    </div>
+                  </span>
+                  <span>{{ item.price }}</span>
+                </li>
+              </ul>
+            </div>
+            <h2>
+              <span>伞下抢单</span>
+              <span>金额：万元</span>
+            </h2>
+            <div
+              ref="obtain"
+              class="right__content"
+              :style="{ paddingTop: '20px', height: sectionHeight }"
+            >
+              <ul>
+                <li v-for="(item, index) in umListData" :key="index">
                   <span>{{ item.company }}</span>
                   <span>
                     <div class="el__progress__bar">
@@ -95,6 +137,7 @@
 <script>
 import countTo from 'vue-count-to'
 import Frame from '@/components/Frame'
+import { numberToCurrencyNo } from '@/utils/auth'
 import { vueBaberrage, MESSAGE_TYPE } from 'vue-baberrage'
 import { getScreenList, getRollList } from '@api'
 
@@ -102,6 +145,7 @@ export default {
   components: { Frame, CountTo: countTo, VueBaberrage: vueBaberrage },
   data() {
     return {
+      digits: 123456,
       nowTime: '',
       startVal: 0,
       endVal: 0,
@@ -109,6 +153,7 @@ export default {
       minHeight: '',
       areaData: [],
       listData: [],
+      umListData: [],
       loading: null,
       intervalTime: null,
       barrageIsShow: true,
@@ -120,7 +165,12 @@ export default {
   },
   computed: {
     sectionHeight() {
-      return this.minHeight
+      return this.minHeight / 1.7 + 'px'
+    },
+    amountData() {
+      return numberToCurrencyNo(this.endVal)
+        .toString()
+        .split(',')
     }
   },
   created() {
@@ -153,7 +203,8 @@ export default {
       if (code === 200) {
         this.areaData = data.area
         this.listData = data.order
-        this.endVal = data.sum
+        this.umListData = data.order_um
+        this.endVal = data.sum * 10000
         this.hideLoading()
       }
     },
@@ -282,18 +333,34 @@ export default {
         font-size: 52px;
         font-family: MicrosoftYaHei-Bold;
         font-weight: 700;
-        color: #e86200;
+        color: #e8e000;
         line-height: 38px;
-        text-shadow: 0px 3px 7px rgba(232, 98, 0, 0.55);
-        background: -webkit-linear-gradient(bottom, #e86200 0%, #f7f578 65%);
-        background: -o-linear-gradient(bottom, #e86200 0%, #f7f578 65%);
-        background: linear-gradient(to top, #e86200 0%, #f7f578 65%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        &:first-child,
-        &:last-child {
+        // text-shadow: 0px 3px 7px rgba(232, 98, 0, 0.55);
+        // background: -webkit-linear-gradient(bottom, #e86200 0%, #f7f578 65%);
+        // background: -o-linear-gradient(bottom, #e86200 0%, #f7f578 65%);
+        // background: linear-gradient(to top, #e86200 0%, #f7f578 65%);
+        // -webkit-background-clip: text;
+        // -webkit-text-fill-color: transparent;
+        // background-clip: text;
+        &:first-child {
           font-size: 36px;
+        }
+        &.amount {
+          display: inline-block;
+          *display: inline;
+          *zoom: 1;
+          padding: 8px 10px;
+          background-color: blue;
+          span {
+            font-size: 52px;
+          }
+          &.zero {
+            padding: 8px 15px;
+            text-indent: -8px;
+            span {
+              letter-spacing: -8px;
+            }
+          }
         }
       }
     }

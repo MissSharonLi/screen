@@ -306,7 +306,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .platform {
-  background: url(~@/assets/images/1.jpg) no-repeat center;
+  background: url(~@/assets/images/1.png) no-repeat center;
   background-size: 100% 100%;
   margin: 0px auto;
   height: 100vh;

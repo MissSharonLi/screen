@@ -71,7 +71,7 @@
           </ElCol>
           <ElCol :span="7">
             <h2>
-              <span>客户抢单</span>
+              <span>直营客户</span>
               <span>金额：万元</span>
             </h2>
             <div
@@ -95,7 +95,7 @@
               </ul>
             </div>
             <h2>
-              <span>伞下抢单</span>
+              <span>伞下客户</span>
               <span>金额：万元</span>
             </h2>
             <div
@@ -128,7 +128,16 @@
           :loop="barrageLoop"
           :throttleGap="throttleGap"
           :extraWidth="200"
-        ></VueBaberrage>
+        >
+          <template #default="slotProps">
+            <div class="baberrage-lane">
+              <div class="normal">
+                <div class="baberrage-avatar"><img /></div>
+                <div class="baberrage-msg" v-html="slotProps.item.msg"></div>
+              </div>
+            </div>
+          </template>
+        </VueBaberrage>
       </div>
     </div>
   </Frame>
@@ -218,7 +227,7 @@ export default {
     initBarrage(data, last_id) {
       this.barrageList.push({
         id: last_id,
-        msg: data.text,
+        msg: `<p>${data.company}</p>${data.price}`,
         time: 10,
         type: MESSAGE_TYPE.NORMAL,
         barrageStyle: data.color

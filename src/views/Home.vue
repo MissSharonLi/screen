@@ -174,7 +174,7 @@ export default {
   },
   computed: {
     sectionHeight() {
-      return this.minHeight / 1.7 + 'px'
+      return this.minHeight / 1.6 + 'px'
     },
     amountData() {
       return numberToCurrencyNo(this.endVal)
@@ -383,7 +383,7 @@ export default {
     ::v-deep .el-col,
     i,
     p {
-      font-size: 24px;
+      font-size: 22px;
     }
   }
   section {
@@ -432,7 +432,7 @@ export default {
       }
       span {
         color: #fff;
-        font-size: 25px;
+        font-size: 22px;
       }
     }
     ul {
@@ -448,21 +448,21 @@ export default {
       -moz-align-items: center;
       -o-align-items: center;
       align-items: center;
-      line-height: 50px;
+      line-height: 40px;
       padding-right: 25px;
       padding-left: 10px;
       span {
         color: #fff;
-        font-size: 24px;
+        font-size: 20px;
         display: block;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
         &:nth-child(1) {
-          width: 120px;
+          width: 100px;
         }
         &:nth-child(2) {
-          width: 55%;
+          width: 50%;
           margin-left: 3%;
           .el__progress__bar {
             position: relative;
@@ -486,7 +486,7 @@ export default {
               top: 1px;
               height: 18px;
               line-height: 18px;
-              font-size: 24px;
+              font-size: 20px;
             }
           }
         }
@@ -516,17 +516,17 @@ export default {
     .right__content {
       span {
         color: #fff;
-        font-size: 24px;
+        font-size: 20px;
         display: block;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
         &:nth-child(1) {
-          width: 240px;
+          width: 210px;
         }
         &:nth-child(2) {
           width: 50%;
-          margin-left: 5%;
+          margin-left: 3%;
           .el__progress__bar {
             position: relative;
             &__outer {
@@ -549,7 +549,7 @@ export default {
               top: 1px;
               height: 18px;
               line-height: 18px;
-              font-size: 24px;
+              font-size: 20px;
             }
           }
         }

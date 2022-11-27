@@ -77,7 +77,7 @@
             <div
               ref="obtain"
               class="right__content"
-              :style="{ paddingTop: '20px', height: sectionHeight }"
+              :style="{ paddingTop: '20px', height: sectionHeight, minHeight: '281px' }"
             >
               <ul>
                 <li v-for="(item, index) in listData" :key="index">
@@ -101,7 +101,7 @@
             <div
               ref="obtain"
               class="right__content"
-              :style="{ paddingTop: '20px', height: sectionHeight }"
+              :style="{ paddingTop: '20px', height: sectionHeight, minHeight: '281px' }"
             >
               <ul>
                 <li v-for="(item, index) in umListData" :key="index">
